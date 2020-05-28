@@ -176,36 +176,44 @@ export class NgxIntlTelInputComponent implements OnInit, OnChanges {
 			return;
 		}
 		const countrySearchTextLower = this.countrySearchText.toLowerCase();
-		const country = this.allCountries.filter(c => {
-			if (this.searchCountryField.indexOf(SearchCountryField.All) > -1) {
-				// Search in all fields
-				if (c.iso2.toLowerCase().includes(countrySearchTextLower)) {
-					return c;
+		// const country = this.allCountries.filter(c => {
+		// 	if (this.searchCountryField.indexOf(SearchCountryField.All) > -1) {
+		// 		// Search in all fields
+		// 		if (c.iso2.toLowerCase().includes(countrySearchTextLower)) {
+		// 			return c;
+		// 		}
+		// 		if (c.name.toLowerCase().includes(countrySearchTextLower)) {
+		// 			return c;
+		// 		}
+		// 		if (c.dialCode.includes(this.countrySearchText)) {
+		// 			return c;
+		// 		}
+		// 	} else {
+		// 		// Or search by specific SearchCountryField(s)
+		// 		if (this.searchCountryField.indexOf(SearchCountryField.Iso2) > -1) {
+		// 			if (c.iso2.toLowerCase().includes(countrySearchTextLower)) {
+		// 				return c;
+		// 			}
+		// 		}
+		// 		if (this.searchCountryField.indexOf(SearchCountryField.Name) > -1) {
+		// 			if (c.name.toLowerCase().includes(countrySearchTextLower)) {
+		// 				return c;
+		// 			}
+		// 		}
+		// 		if (this.searchCountryField.indexOf(SearchCountryField.DialCode) > -1) {
+		// 			if (c.dialCode.includes(this.countrySearchText)) {
+		// 				return c;
+		// 			}
+		// 		}
+		// 	}
+		// });
+		const country = [];
+		this.allCountries.forEach((e) => {
+			e.name.toLowerCase().split(' ').forEach((y) => {
+				if (y.startsWith(countrySearchTextLower)) {
+					country.push(e);
 				}
-				if (c.name.toLowerCase().includes(countrySearchTextLower)) {
-					return c;
-				}
-				if (c.dialCode.includes(this.countrySearchText)) {
-					return c;
-				}
-			} else {
-				// Or search by specific SearchCountryField(s)
-				if (this.searchCountryField.indexOf(SearchCountryField.Iso2) > -1) {
-					if (c.iso2.toLowerCase().includes(countrySearchTextLower)) {
-						return c;
-					}
-				}
-				if (this.searchCountryField.indexOf(SearchCountryField.Name) > -1) {
-					if (c.name.toLowerCase().includes(countrySearchTextLower)) {
-						return c;
-					}
-				}
-				if (this.searchCountryField.indexOf(SearchCountryField.DialCode) > -1) {
-					if (c.dialCode.includes(this.countrySearchText)) {
-						return c;
-					}
-				}
-			}
+			})
 		});
 		if (country.length > 0) {
 			const el = this.countryList.nativeElement.querySelector('#' + country[0].iso2);
