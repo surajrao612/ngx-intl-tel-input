@@ -73,6 +73,8 @@ export class NgxIntlTelInputComponent implements OnInit, OnChanges {
 	errors: Array<any> = ['Phone number is required.'];
 	countrySearchText = '';
 	flagfocus = false;
+	dropfocus = false;
+	phonefocus = false;
 
 	@ViewChild('countryList', { static: false }) countryList: ElementRef;
 
@@ -97,15 +99,38 @@ export class NgxIntlTelInputComponent implements OnInit, OnChanges {
 		}
 		this.checkSeparateDialCodeStyle();
 	}
+	// onPhoneFocus() {
+	// 	this.flagfocus = true;
+	// 	this.inputFocus.emit();
+	// }
+	// onPhoneBlur() {
+	// 	this.flagfocus = false;
+	// 	this.inputBlur.emit();
+	// }
 	onPhoneFocus() {
+		this.phonefocus = true;
 		this.flagfocus = true;
 		this.inputFocus.emit();
 	}
 	onPhoneBlur() {
-		this.flagfocus = false;
-		this.inputBlur.emit();
+		this.phonefocus = false;
+		if (!this.dropfocus) {
+			this.flagfocus = false;
+			this.inputBlur.emit();
+		}
 	}
-
+	onDropfocus() {
+		this.dropfocus = true;
+		this.flagfocus = true;
+		this.inputFocus.emit();
+	}
+	onDropblur() {
+		this.dropfocus = false;
+		if (!this.phonefocus) {
+			this.flagfocus = false;
+			this.inputBlur.emit();
+		}
+	}
 	/*
 		This is a wrapper method to avoid calling this.ngOnInit() in writeValue().
 		Ref: http://codelyzer.com/rules/no-life-cycle-call/

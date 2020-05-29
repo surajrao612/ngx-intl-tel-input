@@ -1,5 +1,6 @@
 <div class="intl-tel-input allow-dropdown" [ngClass]="separateDialCodeClass">
-  <div class="flag-container" dropdown [ngClass]="{'disabled': disabled,'flagfocus': flagfocus}">
+  <div class="flag-container" dropdown [ngClass]="{'disabled': disabled,'flagfocus': flagfocus}"
+  (onShown)="onDropfocus()" (onHidden)="onDropblur()">
     <div class="selected-flag dropdown-toggle" dropdownToggle>
       <div class="iti-flag" [ngClass]="selectedCountry?.flagClass"
         [tooltip]="selectedCountry ? selectedCountry[tooltipField] : ''"></div>
